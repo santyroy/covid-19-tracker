@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Covid19 Tracker</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;1,100&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/styles/main.css}">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+            crossorigin="anonymous"></script>
+
+</head>
+<body>
+<div class="container">
+    <div class="hero d-flex justify-content-center align-items-center my-3">
+        <img src="/images/coronavirus.png" alt="logo">
+        <h1 class="ms-3">Covid 19 tracker</h1>
+    </div>
+    <div class="d-flex justify-content-evenly align-items-evenly row mx-3 my-5">
+        <div class="card shadow p-3 mb-5 bg-body rounded col-lg-3 col-md-3 col-sm-10 col-xs-10">
+            <div class="card-body text-center">
+                <h5 class="text-primary card-title mb-2">Total Cases</h5>
+                <h5 class="card-text fw-semibold" th:text="${worldData.cases}">12345677</h5>
+            </div>
+        </div>
+        <div class="card shadow p-3 mb-5 bg-body rounded col-lg-3 col-md-3 col-sm-10 col-xs-10">
+            <div class="card-body text-center">
+                <h5 class="text-success card-title mb-2">Total Recovered</h5>
+                <h5 class="card-text fw-semibold" th:text="${worldData.recovered}">12345677</h5>
+            </div>
+        </div>
+        <div class="card shadow p-3 mb-5 bg-body rounded col-lg-3 col-md-3 col-sm-10 col-xs-10">
+            <div class="card-body text-center">
+                <h5 class="text-danger card-title mb-2">Total Deaths</h5>
+                <h5 class="card-text fw-semibold" th:text="${worldData.deaths}">12345677</h5>
+            </div>
+        </div>
+    </div>
+
+    <div class="shadow-sm bg-body rounded">
+        <table class="table">
+            <thead>
+            <tr class="sticky-top shadow-sm p-3 mb-2 bg-body rounded">
+                <th scope="col">Flag</th>
+                <th scope="col">Name</th>
+                <th scope="col">Total Cases</th>
+                <th scope="col">Total Recovered</th>
+                <th scope="col">Total Deaths</th>
+                <th scope="col">Active</th>
+                <th scope="col">Critical</th>
+                <th scope="col">Tests</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="shadow-sm p-3 mb-2 bg-body rounded" th:each="country : ${countryData}">
+                <td><img th:src="@{${country.countryInfo.flag}}" style="width: 30px"></td>
+                <td><span th:text="${country.country}"></span></td>
+                <td>
+                    <div class="d-flex row text-center">
+                        <span class="col-7 me-1" th:text="${country.cases}"></span>
+                        <span class="col-4 badge rounded-pill text-bg-warning" th:text="${country.todayCases}"></span>
+                    </div>
+                </td>
+                <td>
+                    <div class="row text-center">
+                        <span class="me-1 col-7" th:text="${country.recovered}"></span>
+                        <span class="col-4 badge rounded-pill text-bg-success" th:text="${country.todayRecovered}"></span>
+                    </div>
+                </td>
+                <td>
+                    <div class="row text-center">
+                        <span class="me-1 col-7" th:text="${country.deaths}"></span>
+                        <span class="col-4 badge rounded-pill text-bg-danger" th:text="${country.todayDeaths}"></span>
+                    </div>
+                </td>
+                <td th:text="${country.active}"></td>
+                <td th:text="${country.critical}"></td>
+                <td th:text="${country.tests}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <footer class="mt-2"></footer>
+</div>
+</body>
+</html>
